@@ -12,9 +12,35 @@ int parse_replace_command(const char* cmd, char** old_str, char** new_str) {
     // 初始化输出参数
     *old_str = NULL;
     *new_str = NULL;
-    
-    // TODO: 在这里添加你的代码
-    // I AM NOT DONE
+
+    // 解析格式: s/old/new/
+    if (cmd[0] != 's' || cmd[1] != '/') {
+        return -1;
+    }
+
+    const char* start = cmd + 2;  // 跳过 "s/"
+    const char* end = strchr(start, '/');
+    if (!end) {
+        return -1;
+    }
+
+    // 提取 old_str
+    size_t old_len = end - start;
+    *old_str = malloc(old_len + 1);
+    strncpy(*old_str, start, old_len);
+    (*old_str)[old_len] = '\0';
+
+    // 提取 new_str
+    start = end + 1;
+    end = strchr(start, '/');
+    if (end) {
+        size_t new_len = end - start;
+        *new_str = malloc(new_len + 1);
+        strncpy(*new_str, start, new_len);
+        (*new_str)[new_len] = '\0';
+    } else {
+        *new_str = strdup(start);
+    }
 
     return 0;
 }
@@ -24,9 +50,16 @@ void replace_first_occurrence(char* str, const char* old, const char* new) {
     if (!str || !old || !new) {
         return;
     }
-    
-    // TODO: 在这里添加你的代码
-    // I AM NOT DONE
+
+    char* pos = strstr(str, old);
+    if (pos) {
+        size_t old_len = strlen(old);
+        size_t new_len = strlen(new);
+        size_t tail_len = strlen(pos + old_len);
+
+        memmove(pos + new_len, pos + old_len, tail_len + 1);
+        memcpy(pos, new, new_len);
+    }
 }
 
 int __cmd_mysed(const char* rules, const char* str) {
