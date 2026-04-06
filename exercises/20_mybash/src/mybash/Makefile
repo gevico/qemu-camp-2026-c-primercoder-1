@@ -23,7 +23,7 @@ all: $(TARGET_PATH)
 
 $(TARGET_PATH): $(OBJS)
 	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) $(OBJS) $(LINKLIBS) -lmysed -lmywc -lmytrans -lmyfile -o $@
+	$(CC) $(CFLAGS) -pie $(OBJS) $(LINKLIBS) -lmysed -lmywc -lmytrans -lmyfile -o $@
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
