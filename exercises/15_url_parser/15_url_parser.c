@@ -13,7 +13,24 @@ int parse_url(const char* url) {
     int err = 0;
 
     // TODO: 在这里添加你的代码
-    // I AM NOT DONE
+    int i=0;
+    while(url[i] && url[i]!='?') i++;
+    i++;
+    while(url[i]) {
+        int j = i;
+        int k = i;
+        while(url[j] && url[j]!='&') {
+            j++;
+            if(url[j]=='=') k = j;
+        }
+        printf("key = ");
+        for(int l=i;l<k;l++) printf("%c", url[l]);
+        printf(", value = ");
+        for(int l=k+1;l<j;l++) printf("%c", url[l]);
+        printf("\n");
+        if(!url[j]) break;
+        i = j + 1;
+    }
 
 exit:
     return err;

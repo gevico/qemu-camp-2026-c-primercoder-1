@@ -41,7 +41,24 @@ void processFile(const char *filename) {
 
     switch (choice) {
         // TODO: 在这里添加你的代码
-        // I AM NOT DONE
+        case 1:
+        int *arr1 = (int *)malloc(n * sizeof(int));
+        for(int i=0;i<n;i++) fscanf(fin, "%d", arr1+i);
+        sort((void *)arr1, n, sizeof(int), compareInt);
+        for(int i=0;i<n;i++) {
+            if(i<n-1) printf("%d ", arr1[i]);
+            else printf("%d\n", arr1[i]);
+        }
+        break;
+    case 2:
+        float *arr2 = (float *)malloc(n * sizeof(float));
+        for(int i=0;i<n;i++) fscanf(fin, "%f", arr2+i);
+        sort((void *)arr2, n, sizeof(float), compareFloat);
+        for(int i=0;i<n;i++) {
+            if(i<n-1) printf("%f ", arr2[i]);
+            else printf("%f\n", arr2[i]);
+        }
+        break;
     }
 
     fclose(fin);
