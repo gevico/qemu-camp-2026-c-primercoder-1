@@ -1,7 +1,7 @@
 # src/mytrans/Makefile
 
 CC = gcc
-CFLAGS = -Wall -I../../include
+CFLAGS = -Wall -I../../include -g -fPIE
 
 # 库名称
 LIBNAME := mytrans
@@ -19,12 +19,11 @@ OBJS := $(patsubst %.o,$(OBJDIR)/%.o,$(OBJS))
 
 all: $(LIB_PATH)
 
-$(LIB_PATH): $(OBJS)
-	@mkdir -p $(OBJDIR)
-	ar rcs $@ $^
 
+$(LIB_PATH): $(OBJS)
+	ar rcs $@ $^
 $(OBJDIR)/%.o: %.c
-	@mkdir -p $(OBJDIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

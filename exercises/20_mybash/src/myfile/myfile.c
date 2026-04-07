@@ -38,18 +38,17 @@ int __cmd_myfile(const char* filename) {
     fflush(stdout);
     printf("filepath: %s\n", filepath);
 
+    // TODO: 在这里添加你的代码
     fd = open(filepath, O_RDONLY);
-    if (fd < 0) {
-        perror("open failed");
+    if ( fd == -1 ){
+        perror("open");
         return 1;
     }
-
-    if (read(fd, &ehdr, sizeof(Elf64_Ehdr)) != sizeof(Elf64_Ehdr)) {
-        perror("read failed");
-        close(fd);
+    int size = read(fd, &ehdr, sizeof(ehdr));
+    if (size != sizeof(ehdr)){
+        perror("read elf");
         return 1;
     }
-
     print_elf_type(ehdr.e_type);
     close(fd);
     return 0;

@@ -8,6 +8,7 @@
 
 PWD := $(shell pwd)
 
+
 # 所有子模块目录（静态库：生成 .a）
 SUBDIRS := \
 	mysed \
@@ -20,16 +21,18 @@ all: mybash
 
 # 通用规则：构建每个子模块（静态库）
 $(SUBDIRS):
-	$(MAKE) -C src/$@ OBJDIR=$(PWD)/obj/$@ BINDIR=$(PWD)/bin
+	@echo "building $@..."
+	@$(MAKE) -C src/$@ OBJDIR=$(PWD)/obj/$@
 
 # 构建 mybash（可执行文件，依赖上面的库）
 mybash: $(SUBDIRS)
-	$(MAKE) -C src/mybash OBJDIR=$(PWD)/obj/mybash BINDIR=$(PWD)/bin
+	@echo "building src/mybash...";
+	@$(MAKE) -C src/mybash BINDIR=$(PWD)/bin OBJDIR=$(PWD)/obj/mybash
 
 # 清理所有生成的文件
 clean:
-	for dir in $(SUBDIRS) mybash; do \
-		$(MAKE) -C src/$$dir clean OBJDIR=$(PWD)/obj/$$dir BINDIR=$(PWD)/bin; \
-	done
+	@for dir in $(SUBDIRS);do echo "Cleaning $$dir.."; $(MAKE) -C src/$$dir clean OBJDIR=$(PWD)/obj/$$dir || true; done
+	@echo "Cleaning src/mybash...";
+	$(MAKE) -C src/mybash clean
 
 .PHONY: all $(SUBDIRS) mybash clean

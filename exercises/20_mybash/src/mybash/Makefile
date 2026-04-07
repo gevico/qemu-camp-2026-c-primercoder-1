@@ -1,7 +1,7 @@
 # src/mybash/Makefile
 
 CC = gcc
-CFLAGS = -Wall -I../../include
+CFLAGS = -Wall -I../../include -g -fPIE
 
 # 可执行文件名
 TARGET := mybash
@@ -19,15 +19,20 @@ OBJS := $(patsubst %.o,$(OBJDIR)/%.o,$(OBJS))
 # 最终二进制路径
 TARGET_PATH := $(BINDIR)/$(TARGET)
 
+LIBS := -lmysed -lmywc -lmytrans -lmyfile
+
 all: $(TARGET_PATH)
 
+# TODO: 在这里添加你的代码
 $(TARGET_PATH): $(OBJS)
 	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) -pie $(OBJS) $(LINKLIBS) -lmysed -lmywc -lmytrans -lmyfile -o $@
+	$(CC) $(CFLAGS) -pie $^ $(LINKLIBS) $(LIBS) -o $@
 
-$(OBJDIR)/%.o: %.c
+$(OBJS): $(SRCS)
 	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+
 
 clean:
 	@rm -rf $(OBJDIR)/*.o $(TARGET_PATH)

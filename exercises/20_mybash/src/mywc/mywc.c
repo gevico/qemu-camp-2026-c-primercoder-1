@@ -26,22 +26,43 @@ void add_word(WordCount **hash_table, const char *word) {
   unsigned int index = hash(word);
   WordCount *entry = hash_table[index];
 
-  // 检查是否已存在
-  while (entry != NULL) {
-      if (strcmp(entry->word, word) == 0) {
-          entry->count++;
-          return;
-      }
-      entry = entry->next;
-  }
+    // TODO: 在这里添加你的代码
 
-  // 不存在则创建新节点
-  WordCount *new_entry = (WordCount *)malloc(sizeof(WordCount));
-  strncpy(new_entry->word, word, MAX_WORD_LEN - 1);
-  new_entry->word[MAX_WORD_LEN - 1] = '\0';
-  new_entry->count = 1;
-  new_entry->next = hash_table[index];
-  hash_table[index] = new_entry;
+    // 桶为空
+    if ( entry == NULL ){
+        WordCount *w = (WordCount*)malloc(sizeof(WordCount));
+        strncpy(w->word, word, MAX_WORD_LEN-1);
+        w->word[MAX_WORD_LEN-1] = '\0';
+        w->next = NULL;
+        w->count=1;
+        hash_table[index]=w;
+        return;
+    }
+
+    // 桶非空，检查头节点
+    if ( strcmp(entry->word, word) == 0 ){
+        entry->count++;
+        return;
+    }
+
+    // 遍历后续节点
+    while( entry->next != NULL ){
+        // hash crash
+        if ( strcmp(entry->next->word, word) == 0 ){
+            entry->next->count++;
+            return;
+        }else{
+            entry=entry->next;
+        }
+    }
+    // 单词不存在添加到末尾
+    WordCount *w = (WordCount*)malloc(sizeof(WordCount));
+    strncpy(w->word, word, MAX_WORD_LEN-1);
+    w->word[MAX_WORD_LEN-1] = '\0';
+    printf("%s\n", w->word);
+    w->next = NULL;
+    w->count=1;
+    entry->next = w;
 }
 
 // 打印单词统计结果
@@ -49,13 +70,14 @@ void print_word_counts(WordCount **hash_table) {
   printf("Word Count Statistics:\n");
   printf("======================\n");
 
-  for (int i = 0; i < HASH_SIZE; i++) {
-      WordCount *entry = hash_table[i];
-      while (entry != NULL) {
-          printf("%-20s %d\n", entry->word, entry->count);
-          entry = entry->next;
-      }
-  }
+    // TODO: 在这里添加你的代码
+    for (int i=0; i<HASH_SIZE; i++){
+        WordCount *cur = hash_table[i];
+        while( cur !=NULL ){
+            printf("%-21s%d\n",cur->word, cur->count);
+            cur=cur->next;
+        }
+    }
 }
 
 // 释放哈希表内存

@@ -54,20 +54,20 @@ void execute_cd(char **args) {
 
 void execute_exit() { exit(0); }
 
+// 0为找到内置命令，1为未找到
 int is_builtin_command(char **args) {
   if (args[0] == NULL)
     return 0;
 
-  if (strcmp(args[0], "cd") == 0) {
-    execute_cd(args);
-    return 1;
+  // TODO: 在这里添加你的代码
+  Command *cmd = commands;
+  while ( cmd->name != NULL ){
+    if ( strcmp(cmd->name, args[0]) == 0 ){
+      return 0;
+    }
+    cmd++;
   }
-  if (strcmp(args[0], "exit") == 0) {
-    execute_exit();
-    return 1;
-  }
-
-  return 0;
+  return 1;
 }
 
 int parse_input(char *input, char **args) {
@@ -83,30 +83,63 @@ int parse_input(char *input, char **args) {
   while (*buf != '\0' && i < MAX_ARGS - 1) {
       char c = *buf;
 
-      if (in_quotes) {
-          // 在引号内，保存字符
-          if (c == '"') {
-              in_quotes = 0;  // 结束引号
-          } else {
-              arg_buf[arg_buf_idx++] = c;
-          }
-      } else {
-          // 不在引号内
-          if (c == '"') {
-              in_quotes = 1;  // 开始引号
-          } else if (isspace(c)) {
-              // 空格分隔参数
-              if (arg_buf_idx > 0) {
-                  arg_buf[arg_buf_idx] = '\0';
-                  args[i++] = strdup(arg_buf);
-                  arg_buf_idx = 0;
-              }
-          } else {
-              // 保存普通字符
-              arg_buf[arg_buf_idx++] = c;
-          }
+        // TODO: 在这里添加你的代码
+        // arg_buf_idx 在非空格时增加，空格时归零
+
+      // 处理引号开头
+      if ( c == '\'' && in_quotes == 0 && arg_buf_idx == 0 ){
+          in_quotes = 1;
+          buf++;
+          arg_start=buf;
+          strncpy(arg_buf, arg_start, MAX_INPUT);
+          continue;
+      }else if ( c == '"' && in_quotes == 0 && arg_buf_idx == 0 ){
+          in_quotes = 2;
+          buf++;
+          arg_start=buf;
+          strncpy(arg_buf, arg_start, MAX_INPUT);
+          continue;
       }
 
+      // 处理引号结尾
+      if ( in_quotes == 1 ){
+          if ( c == '\'' ){
+              in_quotes=0;
+              arg_buf[arg_buf_idx] = '\0';
+              args[i++] = strdup(arg_buf);
+              arg_buf_idx=0;
+          }else{
+              // 没到引号结尾继续遍历
+              arg_buf_idx++;
+          }
+          buf++;
+          continue;
+      }else if ( in_quotes == 2 ){
+          if ( c == '"' ){
+              in_quotes=0;
+              arg_buf[arg_buf_idx] = '\0';
+              args[i++] = strdup(arg_buf);
+              arg_buf_idx=0;
+          }else{
+              // 没到引号结尾继续遍历
+              arg_buf_idx++;
+          }
+          buf++;
+          continue;
+      }
+
+      // 无引号时
+      if ( c!= ' ' ){
+          if ( arg_buf_idx == 0 ){
+              arg_start = buf;
+              strncpy(arg_buf, arg_start, MAX_INPUT);
+          }
+          arg_buf_idx++;
+      }else if ( arg_start != NULL &&  c == ' ' && arg_buf_idx !=0 ){
+          arg_buf[arg_buf_idx] = '\0';
+          args[i++] = strdup(arg_buf);
+          arg_buf_idx=0;
+      }
       buf++;
   }
 
@@ -185,7 +218,7 @@ int main(int argc, char *argv[]) {
 
     fclose(file);
     return 0;
-  } 
+  }
   else {
     // 🔁 原有的交互式命令行模式
     while (1) {
@@ -210,7 +243,8 @@ int main(int argc, char *argv[]) {
       }
 
       const char *cmd_name = args[0];
-      const char *cmd_arg = (argc >= 2) ? args[1] : NULL;
+      const char *cmd_arg1 = (argc >= 2) ? args[1] : NULL;
+      const char *cmd_arg2 = (argc >= 3) ? args[2] : NULL;
 
       int found = 0;
       for (Command *cmd = commands; cmd->name != NULL; cmd++) {
@@ -219,9 +253,9 @@ int main(int argc, char *argv[]) {
           if (cmd->is_arg_required == 0) {
             cmd->func.func_0();
           } else if (cmd->is_arg_required == 1) {
-            cmd->func.func_1(cmd_arg);
+            cmd->func.func_1(cmd_arg1);
           } else if (cmd->is_arg_required == 2) {
-            cmd->func.func_2(cmd_arg, cmd_arg);
+            cmd->func.func_2(cmd_arg1, cmd_arg2);
           }
           break;
         }

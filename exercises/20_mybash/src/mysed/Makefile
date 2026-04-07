@@ -1,7 +1,7 @@
 # src/mysed/Makefile
 
 CC = gcc
-CFLAGS = -Wall -I../../include
+CFLAGS = -Wall -I../../include -g -fPIE
 
 # 库名称
 LIBNAME := mysed
@@ -19,13 +19,13 @@ OBJS := $(patsubst %.o,$(OBJDIR)/%.o,$(OBJS))
 
 all: $(LIB_PATH)
 
+# TODO: 在这里添加你的代码
 $(LIB_PATH): $(OBJS)
+	ar rcs $(LIB_PATH) $(OBJS)
+$(OBJS): $(SRCS)
 	@mkdir -p $(OBJDIR)
-	ar rcs $@ $^
+	$(CC) $(CFLAGS) -c $(SRCS) -o $(OBJS)
 
-$(OBJDIR)/%.o: %.c
-	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJDIR)/*.o $(LIB_PATH)
