@@ -1,4 +1,4 @@
 #!/usr/bin/bash
 
-cd /workspace/exercises/20_mybash
-./bin/mybash /workspace/tests/mybash_cmd.sh
+cd ${PWD}/../exercises/20_mybash
+./bin/mybash ${PWD}/../../tests/mybash_cmd.sh

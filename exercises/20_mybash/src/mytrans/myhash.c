@@ -99,19 +99,11 @@ const char *hash_table_lookup(HashTable *table, const char *key) {
         return NULL;
     }
 
-    if ( node->next == NULL ){
+    while( node != NULL ){
         if (strcmp(node->key, key) == 0){
             return node->value;
-        }else{
-            return NULL;
         }
-    }else{
-        while( node->next == NULL ){
-            if (strcmp(node->key, key) == 0){
-                return node->value;
-            }
-            node=node->next;
-        }
+        node=node->next;
     }
 
   return NULL; // 未找到
