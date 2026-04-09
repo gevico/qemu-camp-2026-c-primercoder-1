@@ -28,7 +28,8 @@ static void* g_callback_args[EVENT_MAX] = {0};
  */
 void register_event(enum EVENT_TYPE type, void (*callback)(void*), void* arg) {
     // TODO: 在这里添加你的代码
-    // I AM NOT DONE
+    g_callbacks[type] = callback;
+    g_callback_args[type] = arg;
 }
 
 /*
@@ -36,7 +37,7 @@ void register_event(enum EVENT_TYPE type, void (*callback)(void*), void* arg) {
  */
 void trigger_event(enum EVENT_TYPE type) {
     // TODO: 在这里添加你的代码
-    // I AM NOT DONE
+    g_callbacks[type](g_callback_args[type]);
 }
 
 /*
