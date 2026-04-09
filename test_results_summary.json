@@ -1,0 +1,215 @@
+{
+  "test_summary": {
+    "timestamp": "2026-04-09T13:05:02Z",
+    "total_exercises": 40,
+    "passed_exercises": 25,
+    "failed_exercises": 0,
+    "not_completed_exercises": 15,
+    "total_score": 125,
+    "max_score": 200,
+    "success_rate": 62.5,
+    "score_per_exercise": 5
+  },
+  "exercises": [
+    {
+      "name": "01_insert_sort",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "02_merge_sort",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "03_quick_sort",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "04_linear_search",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "05_binary_search",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "06_stack_maze",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "07_queue_maze",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "08_circular_queue",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "09_word_counter",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "10_my_strcpy",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "11_command_interpreter",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "12_student_management",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "13_universal_sorter",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "14_calculator",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "15_url_parser",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "16_mysed",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "17_myfile",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "18_mywc",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "19_mytrans",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "20_mybash",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "21_singly_linked_list_josephus",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "22_doubly_circular_queue",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "23_circular_linked_list_josephus",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "24_prev_binary_tree",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "25_counter_letter",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "26_hash_counter",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "27_asm_gcd",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "28_operator_overflow",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "29_swap_endian",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "30_debug_print",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "31_event_handler",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "32_container_of_macro",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "33_garray_dynamic_array",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "34_protocol_header_parser",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "35_elf_info_parser",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "36_lru_cache",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "37_bitmap_operations",
+      "status": "PASSED",
+      "score": 5
+    },
+    {
+      "name": "38_thread_safe_ring_buffer",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "39_strtok_r_thread_safe",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    },
+    {
+      "name": "40_bloom_filter_bitmap",
+      "status": "NOT_COMPLETED",
+      "score": 0
+    }
+  ]
+}
