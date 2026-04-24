@@ -30,7 +30,7 @@ void trim(char *str) {
 int load_dictionary(const char *filename, HashTable *table,
                     uint64_t *dict_count) {
   // 直接使用绝对路径
-  const char *dict_path = "./src/mytrans/dict.txt";
+  const char *dict_path = "../exercises/20_mybash/src/mytrans/dict.txt";
   printf("尝试打开的文件: %s\n", dict_path);
   FILE *file = fopen(dict_path, "r");
   if (!file) {
@@ -98,7 +98,7 @@ int __cmd_mytrans(const char* filename) {
   uint64_t dict_count = 0;
   
   // 使用绝对路径
-  const char *dict_path = "./src/mytrans/dict.txt";
+  const char *dict_path = "../exercises/20_mybash/src/mytrans/dict.txt";
   printf("尝试打开词典文件: %s\n", dict_path);
   
   FILE *dict_file = fopen(dict_path, "r");
