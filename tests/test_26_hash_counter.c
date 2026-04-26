@@ -18,7 +18,7 @@ int main() {
 
     // 编译并运行程序
     char output[10240];
-    int result = compile_and_run("26_hash_counter", "26_hash_counter", output, sizeof(output), 0);
+    int result = compile_and_run("26_hash_counter", "26_hash_counter", output, sizeof(output), 1);
 
     ASSERT_EQUAL_INT(0, result, "程序应该能够成功编译和运行");
 
