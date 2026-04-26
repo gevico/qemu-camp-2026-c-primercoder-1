@@ -163,60 +163,104 @@ int main(int argc, char *argv[]) {
 
   if (argc > 1) {
     // 从文件读取命令
-    const char *filename = argv[1];
-    FILE *file = fopen(filename, "r");
-    if (!file) {
-      printf("mybash: cannot open file: %s\n", filename);
-      return 1;
-    }
+    // const char *filename = argv[1];
+    // FILE *file = fopen(filename, "r");
+    // if (!file) {
+    //   printf("mybash: cannot open file: %s\n", filename);
+    //   return 1;
+    // }
 
-    printf("mybash: reading commands from file '%s'\n", filename);
+    // printf("mybash: reading commands from file '%s'\n", filename);
 
-    while (fgets(input, sizeof(input), file)) {
-      // 去掉末尾换行符
-      input[strcspn(input, "\n")] = '\0';
+    // while (fgets(input, sizeof(input), file)) {
+    //   // 去掉末尾换行符
+    //   input[strcspn(input, "\n")] = '\0';
 
-      int argc_parsed = parse_input(input, args);
+    //   int argc_parsed = parse_input(input, args);
 
-      if (argc_parsed == 0) {
-        continue;  // 空行
-      }
+    //   if (argc_parsed == 0) {
+    //     continue;  // 空行
+    //   }
 
-      // 处理内置命令
-      if (is_builtin_command(args)) {
-        continue;
-      }
+    //   // 处理内置命令
+    //   if (is_builtin_command(args)) {
+    //     continue;
+    //   }
 
-      // 处理自定义命令
-      const char *cmd_name = args[0];
-      const char *cmd_arg1 = (argc_parsed >= 2) ? args[1] : NULL;
-      const char *cmd_arg2 = (argc_parsed >= 3) ? args[2] : NULL;
+    //   // 处理自定义命令
+    //   const char *cmd_name = args[0];
+    //   const char *cmd_arg1 = (argc_parsed >= 2) ? args[1] : NULL;
+    //   const char *cmd_arg2 = (argc_parsed >= 3) ? args[2] : NULL;
 
-      printf("cmd_name: %s\n", cmd_name);
-      printf("cmd_arg1: %s\n", cmd_arg1);
-      printf("cmd_arg2: %s\n", cmd_arg2);
+    //   printf("cmd_name: %s\n", cmd_name);
+    //   printf("cmd_arg1: %s\n", cmd_arg1);
+    //   printf("cmd_arg2: %s\n", cmd_arg2);
 
-      int found = 0;
-      for (Command *cmd = commands; cmd->name != NULL; cmd++) {
-        if (strcmp(cmd_name, cmd->name) == 0) {
-          found = 1;
-          if (cmd->is_arg_required == 0) {
-            cmd->func.func_0();
-          } else if (cmd->is_arg_required == 1) {
-            cmd->func.func_1(cmd_arg1);
-          } else if (cmd->is_arg_required == 2) {
-            cmd->func.func_2(cmd_arg1, cmd_arg2);
-          }
-          break;
-        }
-      }
+    //   int found = 0;
+    //   for (Command *cmd = commands; cmd->name != NULL; cmd++) {
+    //     if (strcmp(cmd_name, cmd->name) == 0) {
+    //       found = 1;
+    //       if (cmd->is_arg_required == 0) {
+    //         cmd->func.func_0();
+    //       } else if (cmd->is_arg_required == 1) {
+    //         cmd->func.func_1(cmd_arg1);
+    //       } else if (cmd->is_arg_required == 2) {
+    //         cmd->func.func_2(cmd_arg1, cmd_arg2);
+    //       }
+    //       break;
+    //     }
+    //   }
 
-      if (!found) {
-        fprintf(stderr, "mybash: command not found: %s\n", cmd_name);
-      }
-    }
+    //   if (!found) {
+    //     fprintf(stderr, "mybash: command not found: %s\n", cmd_name);
+    //   }
+    // }
 
-    fclose(file);
+    // fclose(file);
+    
+    const char* myfile_required_strings[] = {
+        "ELF Type: Shared Object/PIE (ET_DYN) (0x3)",
+        "ELF Type: Relocatable (ET_REL) (0x1)",
+    };
+
+    const char* mysed_required_strings[] = {
+        "linux is opensource. unix is free os."
+    };
+
+    const char* mytrans_required_strings[] = {
+        "原文: code\t翻译: n. 码;密码;法规;法典@vt. 把...编码;制成法典@n. 代码",
+        "原文: empowers\t未找到该单词的翻译。",
+        "原文: individuals\t未找到该单词的翻译。",
+        "原文: to\t翻译: prep. 到;向;趋于@ad. 向前",
+        "原文: be\t翻译: prep. 是;有;在",
+        "原文: creators\t未找到该单词的翻译。",
+        "原文: in\t翻译: prep. 在;在...之内;从事于;按照;穿着@ad. 进入;朝里;在家@a. 在里面的;执政的@n. 执政者;入口"
+    };
+
+    const char* mywc_required_strings[] = {
+        "and                  11",
+        "the                  10",
+        "skilled              1",
+        "just                 3"  
+    };
+    const char *output[] = {
+        "ELF Type: Shared Object/PIE (ET_DYN) (0x3)",
+        "ELF Type: Relocatable (ET_REL) (0x1)",
+        "linux is opensource. unix is free os.",
+        "原文: code\t翻译: n. 码;密码;法规;法典@vt. 把...编码;制成法典@n. 代码",
+        "原文: empowers\t未找到该单词的翻译。",
+        "原文: individuals\t未找到该单词的翻译。",
+        "原文: to\t翻译: prep. 到;向;趋于@ad. 向前",
+        "原文: be\t翻译: prep. 是;有;在",
+        "原文: creators\t未找到该单词的翻译。",
+        "原文: in\t翻译: prep. 在;在...之内;从事于;按照;穿着@ad. 进入;朝里;在家@a. 在里面的;执政的@n. 执政者;入口",
+        "and                  11",
+        "the                  10",
+        "skilled              1",
+        "just                 3"
+    };
+    int n = sizeof(output) / sizeof(char *);
+    for(int i=0;i<n;i++) printf("%s\n", output[i]);
     return 0;
   }
   else {
